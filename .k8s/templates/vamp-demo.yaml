@@ -1,0 +1,43 @@
+kind: Deployment 
+apiVersion: apps/v1 
+metadata:
+  name: docker-app-0.1.0 # YOUR APP NAME
+  labels:
+    app: docker-app # YOUR APP NAME
+    version: 0.1.0 # recommend starting with 0.1.0 and then we'll make it 
+dynamic
+spec: 
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: docker-app # YOUR APP NAME
+      version: 0.1.0 # recommend starting with 0.1.0 and then we'll make 
+it dynamic
+  template: 
+    metadata: 
+      labels:
+        app: docker-app # YOUR APP NAME
+        version: 0.1.0 # recommend starting with 0.1.0 and then we'll make 
+it dynamic
+    spec: 
+      containers: 
+        - name: docker-app # YOUR APP NAME
+          image: brianoh1979/getting-started:latest # YOUR IMAGE
+          imagePullPolicy: Always 
+          ports:
+            - containerPort: 80 # your container port.. using 80 here
+      restartPolicy: Always 
+  
+--- 
+
+kind: Service 
+apiVersion: v1 
+metadata: 
+  name: react-app # YOUR APP NAME
+spec: 
+  type: LoadBalancer 
+  selector:
+    app: docker-app # YOUR APP NAME
+  ports:
+    - port: 80 
+      protocol: TCP 

@@ -1,0 +1,29 @@
+version: 2.1
+
+orbs:
+  aws-eks: circleci/aws-eks@2.2.0
+
+jobs:
+  vamp_deploy:
+    executor: base
+
+    steps:
+      - checkout
+      - run:
+          name: Update manifest
+          command: |
+            cat .k8s/templates/vamp-demo.yaml | envsubst > .k8s/templates/vamp-demo-final.yaml
+            cat .k8s/templates/vamp-demo-final.yaml
+      - aws-eks/update-kubeconfig-with-authenticator:
+          cluster-name: ${EKS_CLUSTER_NAME}
+          aws-region: ${AWS_REGION}
+          install-kubectl: true
+          verbose: true
+      - run:
+          name: kubectl apply
+          command: kubectl apply -f .k8s/templates/vamp-demo-final.yaml -n production
+
+workflows:
+  sample:
+    jobs:
+      - vamp_deploy
