@@ -6,7 +6,7 @@ orbs:
 jobs:
   vamp_deploy:
     machine: # executor type
-      - image: ubuntu-1604:202010-01
+      image: ubuntu-1604:202010-01
 
     steps:
       - checkout
