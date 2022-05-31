@@ -5,8 +5,8 @@ orbs:
 
 jobs:
   vamp_deploy:
-    docker: # executor type
-      - image: cimg/base:stable
+    machine: # executor type
+      - image: ubuntu-1604:202010-01
 
     steps:
       - checkout
@@ -20,7 +20,7 @@ jobs:
           command: |
               sudo apt-get update -y
               sudo apt-get install awscli groff -y
-              pip3 install awscli
+              pip install awscli
               sudo curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.17.12/2020-11-02/bin/linux/amd64/kubectl
               sudo chmod +x ./kubectl
               mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
