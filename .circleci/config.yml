@@ -10,21 +10,21 @@ jobs:
 
     steps:
       - checkout
- #     - run:
- #         name: Update manifest
- #         command: |
- #           cat .k8s/templates/vamp-demo.yaml | envsubst > .k8s/templates/vamp-demo-final.yaml
- #           cat .k8s/templates/vamp-demo-final.yaml
+      - run: apt-get install gettext-base
+      - run:
+          name: Update manifest
+          command: |
+            cat .k8s/templates/vamp-demo.yaml | envsubst > .k8s/templates/vamp-demo-final.yaml
+            cat .k8s/templates/vamp-demo-final.yaml
       - aws-eks/update-kubeconfig-with-authenticator:
           cluster-name: ${EKS_CLUSTER_NAME}
           aws-region: ${AWS_REGION}
-          cluster-authentication-role-arn: ${ROLE_ARN}
           aws-profile: ${AWS_PROFILE}
           install-kubectl: true
           verbose: true
       - run:
           name: kubectl apply
-          command: kubectl apply -f .k8s/templates/vamp-demo.yaml -n production
+          command: kubectl apply -f .k8s/templates/vamp-demo-final.yaml -n brianoh-vamp
 
 workflows:
   sample:

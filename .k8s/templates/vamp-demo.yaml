@@ -5,20 +5,17 @@ metadata:
   labels:
     app: docker-app # YOUR APP NAME
     version: 0.1.0 # recommend starting with 0.1.0 and then we'll make it 
-dynamic
 spec: 
   replicas: 1
   selector: 
     matchLabels:
       app: docker-app # YOUR APP NAME
       version: 0.1.0 # recommend starting with 0.1.0 and then we'll make 
-it dynamic
   template: 
     metadata: 
       labels:
         app: docker-app # YOUR APP NAME
         version: 0.1.0 # recommend starting with 0.1.0 and then we'll make 
-it dynamic
     spec: 
       containers: 
         - name: docker-app # YOUR APP NAME
@@ -33,7 +30,7 @@ it dynamic
 kind: Service 
 apiVersion: v1 
 metadata: 
-  name: react-app # YOUR APP NAME
+  name: docker-app # YOUR APP NAME
 spec: 
   type: LoadBalancer 
   selector:
