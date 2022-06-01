@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - checkout
-      - run: apt-get install gettext-base
+      - run: sudo apt-get install gettext-base
       - run:
           name: Update manifest
           command: |
