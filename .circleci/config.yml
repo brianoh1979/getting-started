@@ -33,8 +33,7 @@ jobs:
            name: Test cluster
       - run: kubectl apply -f https://raw.githubusercontent.com/magneticio/vamp-cloud-demo/main/contour/contour-prometheus.yaml
       - run: kubectl apply -f https://projectcontour.io/quickstart/contour.yaml 
-      - run: curl -sSL 
-https://vampcloud.github.io/vamp-cloud-installer/install.sh | sh -s -- s.3j0WMfWBOyproghluOx56aAK
+      - run: curl -sSL https://vampcloud.github.io/vamp-cloud-installer/install.sh | sh -s -- s.SwVbsurynqkFP67auQF5lbrj
       - run:
           name: kubectl apply
           command: kubectl apply -f .k8s/templates/vamp-demo-final.yaml -n vamp
