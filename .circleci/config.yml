@@ -43,7 +43,13 @@ workflows:
     jobs:
       - aws-eks/delete-cluster:
           cluster-name: brianoh-vamp1
+          aws-region: ${AWS_REGION}
+          aws-profile: ${AWS_PROFILE}
       - aws-eks/delete-cluster:
           cluster-name: brianoh-vamp2
+          aws-region: ${AWS_REGION}
+          aws-profile: ${AWS_PROFILE}
       - aws-eks/delete-cluster:
           cluster-name: brianoh-vamp3
+          aws-region: ${AWS_REGION}
+          aws-profile: ${AWS_PROFILE}
