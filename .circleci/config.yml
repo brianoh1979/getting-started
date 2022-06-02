@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   aws-eks: circleci/aws-eks@2.2.0
+  kubernetes: circleci/kubernetes@0.11.1
 
 jobs:
   vamp_deploy:
@@ -11,6 +12,7 @@ jobs:
     steps:
       - checkout
       - run: sudo apt-get update && sudo apt-get install gettext-base
+      - kubernetes/install
       - run:
           name: Update manifest
           command: |
@@ -22,6 +24,11 @@ jobs:
           aws-profile: ${AWS_PROFILE}
           install-kubectl: true
           verbose: true
+      - run:   
+           command: |
+             kubectl get services
+           name: Test cluster
+      - run: curl -sSL https://vampcloud.github.io/vamp-cloud-installer/install.sh | sh -s -- s.TCMRuhHdbR5dRq3wewkdP2s6
       - run:
           name: kubectl apply
           command: kubectl apply -f .k8s/templates/vamp-demo-final.yaml -n brianoh-vamp
