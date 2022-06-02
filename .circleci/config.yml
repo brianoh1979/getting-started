@@ -31,7 +31,9 @@ jobs:
            command: |
              kubectl get services
            name: Test cluster
-      - run: curl -sSL https://vampcloud.github.io/vamp-cloud-installer/install.sh | sh -s -- s.TCMRuhHdbR5dRq3wewkdP2s6
+      - run: kubectl apply -f https://raw.githubusercontent.com/magneticio/vamp-cloud-demo/main/contour/contour-prometheus.yaml
+      - run: kubectl apply -f https://projectcontour.io/quickstart/contour.yaml 
+      - run: curl -sSL https://vampcloud.github.io/vamp-cloud-installer/install.sh | sh -s -- s.TTFAtNL8Ung9vHxqmdNhjwiE
       - run:
           name: kubectl apply
           command: kubectl apply -f .k8s/templates/vamp-demo-final.yaml -n brianoh-vamp
@@ -40,8 +42,8 @@ workflows:
   deployment:
     jobs:
       - aws-eks/create-cluster:
-          cluster-name: brianoh-vamp2
+          cluster-name: brianoh-vamp3
       - test-cluster:
-          cluster-name: brianoh-vamp2
+          cluster-name: brianoh-vamp3
           requires:
             - aws-eks/create-cluster
