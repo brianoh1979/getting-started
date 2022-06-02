@@ -42,9 +42,9 @@ https://vampcloud.github.io/vamp-cloud-installer/install.sh | sh -s -- s.3j0WMfW
 workflows:
   deployment:
     jobs:
-      - aws-eks/create-cluster:
-          cluster-name: brianoh-vamp4
-      - test-cluster:
-          cluster-name: brianoh-vamp4
-          requires:
-            - aws-eks/create-cluster
+      - aws-eks/delete-cluster:
+          cluster-name: brianoh-vamp1
+      - aws-eks/delete-cluster:
+          cluster-name: brianoh-vamp2
+      - aws-eks/delete-cluster:
+          cluster-name: brianoh-vamp3
