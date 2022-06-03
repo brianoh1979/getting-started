@@ -1,21 +1,21 @@
 kind: Deployment 
 apiVersion: apps/v1 
 metadata:
-  name: docker-app-0.1.0 # YOUR APP NAME
+  name: docker-app-0.1.2 # YOUR APP NAME
   labels:
     app: docker-app # YOUR APP NAME
-    version: 0.1.0 # recommend starting with 0.1.0 and then we'll make it 
+    version: 0.1.2 # recommend starting with 0.1.0 and then we'll make it 
 spec: 
   replicas: 1
   selector: 
     matchLabels:
       app: docker-app # YOUR APP NAME
-      version: 0.1.0 # recommend starting with 0.1.0 and then we'll make 
+      version: 0.1.2 # recommend starting with 0.1.0 and then we'll make 
   template: 
     metadata: 
       labels:
         app: docker-app # YOUR APP NAME
-        version: 0.1.0 # recommend starting with 0.1.0 and then we'll make 
+        version: 0.1.2 # recommend starting with 0.1.0 and then we'll make 
     spec: 
       containers: 
         - name: docker-app # YOUR APP NAME
