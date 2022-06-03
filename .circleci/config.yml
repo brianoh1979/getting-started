@@ -31,9 +31,10 @@ jobs:
            command: |
              kubectl get services
            name: Test cluster
+       - run: kubectl get namespace
 #      - run: kubectl apply -f https://raw.githubusercontent.com/magneticio/vamp-cloud-demo/main/contour/contour-prometheus.yaml
 #      - run: kubectl apply -f https://projectcontour.io/quickstart/contour.yaml 
-      - run: curl -sSL https://vampcloud.github.io/vamp-cloud-installer/install.sh | sh -s -- s.L4nNvT2Kr7RCseXZOPabFjkx
+#      - run: curl -sSL https://vampcloud.github.io/vamp-cloud-installer/install.sh | sh -s -- s.L4nNvT2Kr7RCseXZOPabFjkx
       - run:
           name: kubectl apply
           command: kubectl apply -f .k8s/templates/vamp-demo-final.yaml -n production
