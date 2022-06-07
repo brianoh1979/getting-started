@@ -20,8 +20,8 @@ jobs:
           name: Build and publish Docker Image
           command: |
             sudo docker build -t getting-started:latest .
-            sudo docker tag getting-started:latest brianoh1979/getting-started:latest
-            echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin
+            sudo docker tag getting-started brianoh1979/getting-started:latest
+            sudo docker login -u $DOCKER_USER -p $DOCKER_PASSWORD docker.io
             sudo docker push brianoh1979/getting-started:latest
       - kubernetes/install:
           kubectl-version: v1.22.0
