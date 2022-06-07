@@ -16,6 +16,12 @@ jobs:
     steps:
       - checkout
       - run: sudo apt-get update && sudo apt-get install gettext-base
+      - run: 
+          name: Build and publish Docker Image
+          command: |
+            docker build .
+            docker tag getting-started brianoh1979/getting-started:latest
+            docker push brianoh1979/getting-started:latest
       - kubernetes/install:
           kubectl-version: v1.22.0
       - run:
@@ -32,9 +38,6 @@ jobs:
              kubectl get services
            name: Test cluster
       - run: kubectl get namespace
-#      - run: kubectl apply -f https://raw.githubusercontent.com/magneticio/vamp-cloud-demo/main/contour/contour-prometheus.yaml
-#      - run: kubectl apply -f https://projectcontour.io/quickstart/contour.yaml 
-#      - run: curl -sSL https://vampcloud.github.io/vamp-cloud-installer/install.sh | sh -s -- s.KHXtSsAP3bpRDLwtVQxSg5vo
       - run:
           name: kubectl apply
           command: kubectl apply -f .k8s/templates/vamp-demo-final.yaml -n production
