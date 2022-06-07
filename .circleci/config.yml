@@ -20,6 +20,7 @@ jobs:
           name: Build and publish Docker Image
           command: |
             sudo docker build .
+            sudo docker ps -a
             sudo docker tag getting-started brianoh1979/getting-started:latest
             sudo docker push brianoh1979/getting-started:latest
       - kubernetes/install:
