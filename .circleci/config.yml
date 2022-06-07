@@ -19,9 +19,8 @@ jobs:
       - run: 
           name: Build and publish Docker Image
           command: |
-            sudo docker build .
-            sudo docker ps -a
-            sudo docker tag getting-started brianoh1979/getting-started:latest
+            sudo docker build -t getting-started:latest .
+            sudo docker tag getting-started:latest brianoh1979/getting-started:latest
             sudo docker push brianoh1979/getting-started:latest
       - kubernetes/install:
           kubectl-version: v1.22.0
