@@ -6,50 +6,14 @@ orbs:
 
 jobs:
   test-cluster:
-    docker: # executor type
-      - image: cimg/python:3.10
-    parameters:
-      cluster-name:
-        description: |
-          Name of the EKS cluster
-        type: string
+    docker: 
+      - image: cimg/base:2021.11
+    resource_class: brianoh1979/brian-containeragent2
     steps:
       - checkout
-      - run: sudo apt-get update && sudo apt-get install gettext-base
-      - kubernetes/install:
-          kubectl-version: v1.22.0
-      - run:
-          name: Update manifest
-          command: |
-            cat .k8s/templates/vamp-demo.yaml | envsubst > .k8s/templates/vamp-demo-final.yaml
-            cat .k8s/templates/vamp-demo-final.yaml
-      - aws-eks/update-kubeconfig-with-authenticator:
-          cluster-name: << parameters.cluster-name >>
-          aws-region: ${AWS_REGION}
-          aws-profile: ${AWS_PROFILE}
-      - run:   
-           command: |
-             kubectl get services
-           name: Test cluster
-      - run: kubectl apply -f https://raw.githubusercontent.com/magneticio/vamp-cloud-demo/main/contour/contour-prometheus.yaml
-      - run: kubectl apply -f https://projectcontour.io/quickstart/contour.yaml 
-      - run: curl -sSL https://vampcloud.github.io/vamp-cloud-installer/install.sh | sh -s -- s.3j0WMfWBOyproghluOx56aAK
-      - run:
-          name: kubectl apply
-          command: kubectl apply -f .k8s/templates/vamp-demo-final.yaml -n vamp
+      - run: echo "Hello World!"
 
 workflows:
   deployment:
     jobs:
-      - aws-eks/delete-cluster:
-          cluster-name: brianoh-vamp5
-          aws-region: ${AWS_REGION}
-          aws-profile: ${AWS_PROFILE}
-#      - aws-eks/delete-cluster:
-#          cluster-name: brianoh-vamp2
-#          aws-region: ${AWS_REGION}
-#          aws-profile: ${AWS_PROFILE}
-#      - aws-eks/delete-cluster:
-#          cluster-name: brianoh-vamp3
-#          aws-region: ${AWS_REGION}
-#          aws-profile: ${AWS_PROFILE}
+      - test-cluster
