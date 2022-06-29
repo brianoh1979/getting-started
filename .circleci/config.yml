@@ -8,16 +8,16 @@ jobs:
   test-cluster:
     docker: 
       - image: cimg/base:2021.11
-        resource_class: brianoh1979/brian-containeragent2
-      - image: cimg/mysql:8.0
-        auth:
-          username: $DOCKER_USER
-          password: $DOCKER_PASSWORD  
-        environment:
-          MYSQL_ROOT_PASSWORD: rootpw
-          MYSQL_DATABASE: test_db
-          MYSQL_USER: user
-          MYSQL_PASSWORD: passw0rd
+    resource_class: brianoh1979/brian-containeragent2
+ #     - image: cimg/mysql:8.0
+ #       auth:
+ #         username: $DOCKER_USER
+ #         password: $DOCKER_PASSWORD  
+ #       environment:
+ #         MYSQL_ROOT_PASSWORD: rootpw
+ #         MYSQL_DATABASE: test_db
+ #         MYSQL_USER: user
+ #         MYSQL_PASSWORD: passw0rd
 
     
     steps:
