@@ -5,7 +5,7 @@ orbs:
   ruby: circleci/ruby@1.8.0
 
 jobs:
-  test-agent:
+  test-agent1:
     docker: 
       - image: cimg/ruby:2.7.4-node
       - image: cimg/mysql:8.0
@@ -54,9 +54,80 @@ jobs:
       - checkout
       - run: echo "Hello World again!"
 
+  test-agent4:
+    docker:
+      - image: cimg/ruby:2.7.4-node
+    resource_class: brianoh1979/brian-containeragent2
+
+    steps:
+      - checkout
+      - run: echo "Hello World again!"
+
+  test-agent5:
+    docker:
+      - image: cimg/ruby:2.7.4-node
+    resource_class: brianoh1979/brian-containeragent2
+
+    steps:
+      - checkout
+      - run: echo "Hello World again!"
+
+  test-agent6:
+    docker:
+      - image: cimg/ruby:2.7.4-node
+    resource_class: brianoh1979/brian-containeragent2
+
+    steps:
+      - checkout
+      - run: echo "Hello World again!"
+ 
+  test-agent7:
+    docker:
+      - image: cimg/ruby:2.7.4-node
+    resource_class: brianoh1979/brian-containeragent2
+
+    steps:
+      - checkout
+      - run: echo "Hello World again!"
+  
+  test-agent8:
+    docker:   
+      - image: cimg/ruby:2.7.4-node
+    resource_class: brianoh1979/brian-containeragent2
+    
+    steps:
+      - checkout
+      - run: echo "Hello World again!"
+
+  test-agent9:
+    docker:   
+      - image: cimg/ruby:2.7.4-node
+    resource_class: brianoh1979/brian-containeragent2
+    
+    steps:
+      - checkout
+      - run: echo "Hello World again!"
+
+  test-agent10:
+    docker:   
+      - image: cimg/ruby:2.7.4-node
+    resource_class: brianoh1979/brian-containeragent2
+    
+    steps:
+      - checkout
+      - run: echo "Hello World again!"
+
+
 workflows:
   deployment:
     jobs:
-      - test-agent
+      - test-agent1
       - test-agent2
       - test-agent3
+      - test-agent4
+      - test-agent5
+      - test-agent6
+      - test-agent7
+      - test-agent8
+      - test-agent9
+      - test-agent10
