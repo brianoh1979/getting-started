@@ -45,8 +45,18 @@ jobs:
       - checkout
       - run: echo "Hello World!"
 
+  test-agent3:
+    docker:
+      - image: cimg/ruby:2.7.4-node
+    resource_class: brianoh1979/brian-containeragent2
+          
+    steps:
+      - checkout
+      - run: echo "Hello World again!"
+
 workflows:
   deployment:
     jobs:
       - test-agent
       - test-agent2
+      - test-agent3
