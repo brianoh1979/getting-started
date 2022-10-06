@@ -8,7 +8,8 @@ jobs:
   test-agent1:
     docker: 
       - image: gcr.io/kaniko-project/executor:v1.9.0-debug
-    resource_class: brianoh1979/brian-containeragent2
+
+#    resource_class: brianoh1979/brian-containeragent2
     
     steps:
       - checkout
