@@ -16,7 +16,7 @@ jobs:
       - run:
           name: docker build with kaniko
           command: |
-            sudo /kaniko/executor \
+            /kaniko/executor \
              --context $(pwd) \
              --dockerfile Dockerfile \
              --destination docker-publish.nexus.aetnadigital.net/sunggun/kaniko-test:0.0.1 \
