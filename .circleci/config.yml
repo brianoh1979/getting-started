@@ -7,127 +7,21 @@ orbs:
 jobs:
   test-agent1:
     docker: 
-      - image: cimg/ruby:2.7.4-node
-      - image: cimg/mysql:8.0
-        environment:
-          MYSQL_ROOT_PASSWORD: rootpw
-          MYSQL_DATABASE: test_db
-          MYSQL_USER: user
-          MYSQL_PASSWORD: passw0rd
+      - image: gcr.io/kaniko-project/executor:v1.9.0-debug
     resource_class: brianoh1979/brian-containeragent2
     
     steps:
       - checkout
       - run:
-      # Our primary container isn't MYSQL so run a sleep command until it's ready.
-          name: Waiting for MySQL to be ready
+          name: docker build with kaniko
           command: |
-            for i in `seq 1 10`;
-            do
-              nc -z 127.0.0.1 3306 && echo Success && exit 0
-              echo -n .
-              sleep 1
-            done
-            echo Failed waiting for MySQL && exit 1
-      - run:
-          name: Install MySQL CLI; Import dummy data; run an example query
-          command: |
-            sudo apt-get update && sudo apt-get install default-mysql-client
-            mysql -h 127.0.0.1 -u user -ppassw0rd test_db < sql-data/dummy.sql
-            mysql -h 127.0.0.1 -u user -ppassw0rd --execute="SELECT * FROM test_db.Persons"
-
-  test-agent2:
-    docker:
-      - image: cimg/ruby:2.7.4-node
-    resource_class: brianoh1979/brian-containeragent2
-
-    steps:
-      - checkout
-      - run: echo "Hello World!"
-
-  test-agent3:
-    docker:
-      - image: cimg/ruby:2.7.4-node
-    resource_class: brianoh1979/brian-containeragent2
-          
-    steps:
-      - checkout
-      - run: echo "Hello World again!"
-
-  test-agent4:
-    docker:
-      - image: cimg/ruby:2.7.4-node
-    resource_class: brianoh1979/brian-containeragent2
-
-    steps:
-      - checkout
-      - run: echo "Hello World again!"
-
-  test-agent5:
-    docker:
-      - image: cimg/ruby:2.7.4-node
-    resource_class: brianoh1979/brian-containeragent2
-
-    steps:
-      - checkout
-      - run: echo "Hello World again!"
-
-  test-agent6:
-    docker:
-      - image: cimg/ruby:2.7.4-node
-    resource_class: brianoh1979/brian-containeragent2
-
-    steps:
-      - checkout
-      - run: echo "Hello World again!"
- 
-  test-agent7:
-    docker:
-      - image: cimg/ruby:2.7.4-node
-    resource_class: brianoh1979/brian-containeragent2
-
-    steps:
-      - checkout
-      - run: echo "Hello World again!"
-  
-  test-agent8:
-    docker:   
-      - image: cimg/ruby:2.7.4-node
-    resource_class: brianoh1979/brian-containeragent2
-    
-    steps:
-      - checkout
-      - run: echo "Hello World again!"
-
-  test-agent9:
-    docker:   
-      - image: cimg/ruby:2.7.4-node
-    resource_class: brianoh1979/brian-containeragent2
-    
-    steps:
-      - checkout
-      - run: echo "Hello World again!"
-
-  test-agent10:
-    docker:   
-      - image: cimg/ruby:2.7.4-node
-    resource_class: brianoh1979/brian-containeragent2
-    
-    steps:
-      - checkout
-      - run: echo "Hello World again!"
-
+            sudo /kaniko/executor \
+             --context $(pwd) \
+             --dockerfile Dockerfile \
+             --destination docker-publish.nexus.aetnadigital.net/sunggun/kaniko-test:0.0.1 \
+             --tarPath image.tar
 
 workflows:
   deployment:
     jobs:
       - test-agent1
-      - test-agent2
-      - test-agent3
-      - test-agent4
-      - test-agent5
-      - test-agent6
-      - test-agent7
-      - test-agent8
-      - test-agent9
-      - test-agent10
