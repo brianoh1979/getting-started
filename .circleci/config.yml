@@ -19,8 +19,7 @@ jobs:
             /kaniko/executor \
              --context $(pwd) \
              --dockerfile Dockerfile \
-             --no-push \
-             --tarPath image.tar
+             --no-push 
 
 workflows:
   deployment:
