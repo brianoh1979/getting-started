@@ -19,7 +19,6 @@ jobs:
             /kaniko/executor \
              --context $(pwd) \
              --dockerfile Dockerfile \
-             --destination brianoh1979/circleci-demo-docker7/kaniko-test:0.0.1 \
              --tarPath image.tar
 
 workflows:
